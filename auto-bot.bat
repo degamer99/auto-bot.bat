@@ -4,6 +4,7 @@ color f0
 
 
 :menu
+cls
 echo GOOD DAY SIR
 echo.
 echo What would you like to do
@@ -71,3 +72,45 @@ cls
 echo COMPLETE
 ping localhost -n 1.5 > nul
 goto wouldyou
+
+:tts
+cls
+echo WHAT DO YOU WANT ME TO SAY :
+set /p say=
+echo set speech = Wscript.CreateObject("SAPI.spVoice") > "temp.vbs"
+echo speech.speak "%say%" >> "temp.vbs"
+start temp.vbs
+ping localhost -n 1 > nul
+cls
+echo LOADING
+ping localhost -n 1 > nul
+cls
+echo LOADING.
+ping localhost -n 2 > nul
+cls
+echo LOADING..
+ping localhost -n 1 > nul
+cls
+echo LOADING...
+ping localhost -n 2 > nul
+cls
+echo COMPLETE
+ping localhost -n 2 > nul
+set next= tts
+goto would
+
+:would
+cls
+echo WOULD YOU LIKE TO CONTINUE: press yes / no
+ping localhost -n 1 > nul
+echo  OR GOTO MENU: press menu
+set /p would=
+if %would% == yes goto yes 
+if %would% == no goto no
+if %would% == menu goto menu
+
+:yes 
+goto %next%
+
+:no
+exit
